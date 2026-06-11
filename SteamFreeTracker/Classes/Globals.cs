@@ -10,6 +10,7 @@ namespace SteamFreeTracker.Classes
     {
         public static readonly string Version = "1.0.0";
         public static readonly string ExecutePath = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string ConfigPath = Path.Combine(ExecutePath, "config.json");
 
         public static class APIs
         {
@@ -25,5 +26,7 @@ namespace SteamFreeTracker.Classes
 
         //免费游戏
         public static Dictionary<string, JsonAppInfo.AppInfo> FreeGames = new Dictionary<string, JsonAppInfo.AppInfo>();
+
+        public static JsonConfig.Root Config = new JsonConfig.Root();
     }
 }

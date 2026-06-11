@@ -1,7 +1,10 @@
-﻿using SteamFreeTracker.Classes;
+﻿using Newtonsoft.Json;
+using SteamFreeTracker.Classes;
 using SteamFreeTracker.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Media;
 using System.Text;
 using System.Windows;
@@ -24,10 +27,14 @@ namespace SteamFreeTracker.Windows
         public BitmapImage? Header { get; set; } = new BitmapImage();
         public string? NoticeTitle { get; set; } = "Title";
         public string? NoticeContent { get; set; } = "Content";
+        public string? AppId { get; set; } = "0";
 
         public int? PricePercent { get; set; } = 100;
         public string? PriceInital { get; set; } = "￥100.00";
         public string? PriceFinal { get; set; } = "￥0.00";
+
+
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         public WindowNotice()
         {
@@ -59,7 +66,7 @@ namespace SteamFreeTracker.Windows
             this.Show();
 
             ShowFadeIn();
-            await Task.Delay(10000);
+            try { await Task.Delay(10000, _cts.Token); } catch (TaskCanceledException) { }
             ShowFadeOut();
             await Task.Delay(1000);
 
@@ -94,6 +101,22 @@ namespace SteamFreeTracker.Windows
             };
             win_Translate.BeginAnimation(TranslateTransform.YProperty, null);
             win_Translate.BeginAnimation(TranslateTransform.YProperty, ani);
+        }
+
+        private void overlay_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //跳转商店页面
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://store.steampowered.com/app/{AppId}",
+                UseShellExecute = true
+            });
+
+            Globals.Config.IgnoreGames.Add(AppId!);
+            File.WriteAllText(Globals.ConfigPath, JsonConvert.SerializeObject(Globals.Config));
+
+            //取消等待，立即退出
+            _cts.Cancel();
         }
     }
 }

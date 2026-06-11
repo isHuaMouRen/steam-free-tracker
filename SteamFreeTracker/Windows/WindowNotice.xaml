@@ -33,5 +33,9 @@
             <!--打折标识-->
             <ctrl:UserDiscount x:Name="userDiscount" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5"/>
         </Grid>
+        
+        
+        <!--顶层覆盖-->
+        <Rectangle x:Name="overlay" Fill="Transparent" Cursor="Hand" MouseUp="overlay_MouseUp"/>
     </Grid>
 </Window>

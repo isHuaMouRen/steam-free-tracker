@@ -5,6 +5,7 @@ using SteamFreeTracker.Utils;
 using SteamFreeTracker.Windows;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,6 +18,17 @@ namespace SteamFreeTracker
     {
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            //检测配置
+            if (!File.Exists(Globals.ConfigPath))
+            {
+                var config = new JsonConfig.Root { IgnoreGames = new List<string>() };
+                File.WriteAllText(Globals.ConfigPath, JsonConvert.SerializeObject(config));
+            }
+            //读取配置
+            Globals.Config = JsonConvert.DeserializeObject<JsonConfig.Root>(File.ReadAllText(Globals.ConfigPath))!;
+
+
+
             using var client = new HttpClient();
 
             JsonStoreSearchResults? searchResult = null;
@@ -55,6 +67,7 @@ namespace SteamFreeTracker
                     Header = gameData.Header,
                     NoticeTitle = gameData.Name,
                     NoticeContent = gameData.AboutTheGameNoHTML,
+                    AppId = gameData.SteamAppid.ToString(),
 
                     PricePercent = gameData.PriceOverview == null ? 100 : gameData.PriceOverview.DiscountPercent,
                     PriceInital = $"￥{(gameData.PriceOverview == null ? "UNKNOWN" : (gameData.PriceOverview.Initial / 100).ToString("F2"))}",
@@ -76,6 +89,10 @@ namespace SteamFreeTracker
         {
             try
             {
+                //如果游戏已获得，就忽略
+                if (Globals.Config.IgnoreGames.Contains(appid))
+                    return;
+
                 //详细信息获取
                 string detailJson = await client.GetStringAsync(Globals.APIs.AppInfoAPI + appid);
                 var info = JsonConvert.DeserializeObject<Dictionary<string, JsonAppInfo.AppInfo>>(detailJson);
