@@ -3,14 +3,9 @@ using SteamFreeTracker.Classes;
 using SteamFreeTracker.Classes.Json;
 using SteamFreeTracker.Utils;
 using SteamFreeTracker.Windows;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SteamFreeTracker
 {

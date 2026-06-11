@@ -11,12 +11,12 @@ namespace SteamFreeTracker.Classes.Json
         [JsonProperty("items")]
         public required ResultInfo[] Items { get; set; }
 
-        
+
         public class ResultInfo
         {
             [JsonProperty("name")]
             public required string Name { get; set; }
-            
+
             [JsonProperty("logo")]
             public required string Logo { get; set; }
 
