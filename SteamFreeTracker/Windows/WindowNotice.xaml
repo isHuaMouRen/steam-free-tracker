@@ -1,0 +1,37 @@
+﻿<Window x:Class="SteamFreeTracker.Windows.WindowNotice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SteamFreeTracker.Windows"
+        xmlns:ctrl="clr-namespace:SteamFreeTracker.Controls"
+        mc:Ignorable="d"
+        Title="WindowNotice" Height="400" Width="420"
+        WindowStyle="None"
+        WindowStartupLocation="Manual"
+        ResizeMode="NoResize"
+        Topmost="True" Background="Transparent" AllowsTransparency="True" ShowInTaskbar="False">
+    <Grid Background="{StaticResource SteamTheme}">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="win_Translate"/>
+        </Grid.RenderTransform>
+        
+        
+        <TextBlock Text="找到新的限时免费游戏！" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontSize="20" FontWeight="Bold"/>
+        <!--主区域-->
+        <Grid Margin="5,35,5,5">
+            <!--背景Steam图标-->
+            <ctrl:IconSteam Width="180" Height="180" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-40,-40" Opacity="0.25"/>
+
+            <!--游戏Header-->
+            <Image x:Name="image_Header" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="185" Margin="10,10,10,10" Stretch="Fill"/>
+
+            <!--副标题与Content-->
+            <TextBlock x:Name="textBlock_Title" Text="Title" Foreground="#CCFFFFFF" Margin="10,205,10,10" FontSize="20" FontWeight="Bold" TextTrimming="CharacterEllipsis" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock_Content" Text="Content" Foreground="#B2FFFFFF" Margin="10,235,10,30" FontSize="15" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
+
+            <!--打折标识-->
+            <ctrl:UserDiscount x:Name="userDiscount" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5"/>
+        </Grid>
+    </Grid>
+</Window>

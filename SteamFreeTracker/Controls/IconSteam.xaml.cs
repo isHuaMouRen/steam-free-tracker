@@ -8,16 +8,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SteamFreeTracker.Windows
+namespace SteamFreeTracker.Controls
 {
     /// <summary>
-    /// WindowMain.xaml 的交互逻辑
+    /// IconSteam.xaml 的交互逻辑
     /// </summary>
-    public partial class WindowMain : Window
+    public partial class IconSteam : UserControl
     {
-        public WindowMain()
+        public IconSteam()
         {
             InitializeComponent();
         }
