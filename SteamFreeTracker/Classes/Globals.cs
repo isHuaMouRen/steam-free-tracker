@@ -5,7 +5,7 @@ namespace SteamFreeTracker.Classes
 {
     public static class Globals
     {
-        public static readonly string Version = "1.0.0";
+        public static readonly string Version = "1.1.0";
         public static readonly string ExecutePath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string ConfigPath = Path.Combine(ExecutePath, "config.json");
 
